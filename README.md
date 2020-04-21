@@ -1,3 +1,3 @@
 # aws-lambda
 
-Simple HTTP endpoint
+Simple aws serverless lambda
