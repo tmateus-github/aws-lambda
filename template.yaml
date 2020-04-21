@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  aws-lambda
+
+  simple http endpoint
+
+Globals:
+  Function:
+    Timeout: 60
+
+Resources:
+  TestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: test/
+      Handler: app.test_handler
+      Runtime: python3.7
+      Events:
+        Test:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+
+Outputs:
+  TestApi:
+    Description: "API Gateway endpoint URL for Prod stage for test function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/test/"
+  TestFunction:
+    Description: "Test function Lambda Function ARN"
+    Value: !GetAtt HelloWorldFunction.Arn
+  TestFunctionIamRole:
+    Description: "Implicit IAM Role created for test function"
+    Value: !GetAtt HelloWorldFunctionRole.Arn
